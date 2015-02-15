@@ -29,12 +29,14 @@ Módulo para la gestión de solicitudes de atención de daños sobre infraestruc
         """,
         "depends" : ['base',
                      'project',
+                     'base_geoengine',
                     ],
         "demo_xml" : [],
         "update_xml" : [
                         'thakhi_view.xml',
                         'project_view.xml',
                         'contrato_view.xml',
+                        'res_city_view.xml',
                        ],
         "installable": True
 }

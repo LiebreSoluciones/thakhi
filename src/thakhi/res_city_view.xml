@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <menuitem name="Mapas Ciudad" id="res_city_menu_nav"/>
+    <menuitem name="Mapas Ciudad" id="res_city_menu_root" parent="res_city_menu_nav"/>
+
+    <!--
+    ================================================================================
+    District - Localidad
+    =====================================================================================
+    -->
+    <record model="ir.actions.act_window" id="res_city_district_action">
+            <field name="name">Localidades</field>
+            <field name="res_model">res.city.district</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,geoengine</field>
+    </record>
+    <menuitem name="Localidades" id="res_city_district_menu" parent="res_city_menu_root" action="res_city_district_action"/>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="res_city_district_form">
+            <field name="name">res.city.district.form</field>
+            <field name="model">res.city.district</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Localidades">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <group colspan="4" col="2">
+                        <field name="shape" widget="geo_edit_map"/>
+                    </group>
+                </form>
+            </field>
+    </record>
+    <!-- Tree View -->
+    <record model="ir.ui.view" id="res_city_district_tree">
+            <field name="name">res.city.district.tree</field>
+            <field name="model">res.city.district</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Localidades">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+    </record>
+    <!-- Geoengine View -->
+    <record  model="ir.ui.view" id="res_city_district_geoengine" >
+        <field name="name">res.city.district.geoengine</field>
+        <field name="type">geoengine</field>
+        <field name="model">res.city.district</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="code"/>
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+    <!-- Geoengine Base Raster -->
+    <record model="geoengine.raster.layer" id="res_city_district_raster">
+                <field name="raster_type">osm</field>
+                <field name="name">Base Localidad</field>
+                <field name="view_id" ref="res_city_district_geoengine"/>
+                <field eval="0" name="overlay"/>
+    </record>
+    <!-- Geoengine Vector Layer -->
+    <record  model="geoengine.vector.layer" id="res_city_district_vector">
+                <field name="geo_field_id" ref="thakhi.field_res_city_district_shape"/>
+                <field name="name">Localidades</field>
+                <field name="view_id" ref="res_city_district_geoengine"/>
+                <field name="geo_repr">basic</field>
+                <field name="attribute_field_id" ref="thakhi.field_res_city_district_code"/>
+                <field name="begin_color">#FF680A</field>
+    </record>
+    <!--
+    ================================================================================
+    District - Localidad
+    =====================================================================================
+    -->
+    <record model="ir.actions.act_window" id="res_city_district_action">
+            <field name="name">Localidades</field>
+            <field name="res_model">res.city.district</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,geoengine</field>
+    </record>
+    <menuitem name="Localidades" id="res_city_district_menu" parent="res_city_menu_root" action="res_city_district_action"/>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="res_city_district_form">
+            <field name="name">res.city.district.form</field>
+            <field name="model">res.city.district</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Localidades">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <group colspan="4" col="2">
+                        <field name="shape" widget="geo_edit_map"/>
+                    </group>
+                </form>
+            </field>
+    </record>
+    <!-- Tree View -->
+    <record model="ir.ui.view" id="res_city_district_tree">
+            <field name="name">res.city.district.tree</field>
+            <field name="model">res.city.district</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Localidades">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+    </record>
+    <!-- Geoengine View -->
+    <record  model="ir.ui.view" id="res_city_district_geoengine" >
+        <field name="name">res.city.district.geoengine</field>
+        <field name="type">geoengine</field>
+        <field name="model">res.city.district</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="code"/>
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+    <!-- Geoengine Base Raster -->
+    <record model="geoengine.raster.layer" id="res_city_district_raster">
+                <field name="raster_type">osm</field>
+                <field name="name">Base Localidad</field>
+                <field name="view_id" ref="res_city_district_geoengine"/>
+                <field eval="0" name="overlay"/>
+    </record>
+    <!-- Geoengine Vector Layer -->
+    <record  model="geoengine.vector.layer" id="res_city_district_vector">
+                <field name="geo_field_id" ref="thakhi.field_res_city_district_shape"/>
+                <field name="name">Localidades</field>
+                <field name="view_id" ref="res_city_district_geoengine"/>
+                <field name="geo_repr">basic</field>
+                <field name="attribute_field_id" ref="thakhi.field_res_city_district_code"/>
+                <field name="begin_color">#FF680A</field>
+    </record>
+    <!--
+    ================================================================================
+    subdistrict - UPZ
+    =====================================================================================
+    -->
+    <record model="ir.actions.act_window" id="res_city_subdistrict_action">
+            <field name="name">Unidades de Planeación Zonal</field>
+            <field name="res_model">res.city.subdistrict</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,geoengine</field>
+    </record>
+    <menuitem name="UPZ" id="res_city_subdistrict_menu" parent="res_city_menu_root" action="res_city_subdistrict_action"/>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="res_city_subdistrict_form">
+            <field name="name">res.city.subdistrict.form</field>
+            <field name="model">res.city.subdistrict</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="UPZ">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <group colspan="4" col="2">
+                        <field name="shape" widget="geo_edit_map"/>
+                    </group>
+                </form>
+            </field>
+    </record>
+    <!-- Tree View -->
+    <record model="ir.ui.view" id="res_city_subdistrict_tree">
+            <field name="name">res.city.subdistrict.tree</field>
+            <field name="model">res.city.subdistrict</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="UPZ">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+    </record>
+    <!-- Geoengine View -->
+    <record  model="ir.ui.view" id="res_city_subdistrict_geoengine" >
+        <field name="name">res.city.subdistrict.geoengine</field>
+        <field name="type">geoengine</field>
+        <field name="model">res.city.subdistrict</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="code"/>
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+    <!-- Geoengine Base Raster -->
+    <record model="geoengine.raster.layer" id="res_city_subdistrict_raster">
+                <field name="raster_type">osm</field>
+                <field name="name">Base UPZ</field>
+                <field name="view_id" ref="res_city_subdistrict_geoengine"/>
+                <field eval="0" name="overlay"/>
+    </record>
+    <!-- Geoengine Vector Layer -->
+    <record  model="geoengine.vector.layer" id="res_city_subdistrict_vector">
+                <field name="geo_field_id" ref="thakhi.field_res_city_subdistrict_shape"/>
+                <field name="name">UPZ</field>
+                <field name="view_id" ref="res_city_subdistrict_geoengine"/>
+                <field name="geo_repr">basic</field>
+                <field name="attribute_field_id" ref="thakhi.field_res_city_subdistrict_code"/>
+                <field name="begin_color">#FF680A</field>
+    </record>
+    <!--
+    ================================================================================
+    Barrio - Neighborhood
+    =====================================================================================
+    -->
+    <record model="ir.actions.act_window" id="res_city_neighborhood_action">
+            <field name="name">Barrios</field>
+            <field name="res_model">res.city.neighborhood</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,geoengine</field>
+    </record>
+    <menuitem name="Barrios" id="res_city_neighborhood_menu" parent="res_city_menu_root" action="res_city_neighborhood_action"/>
+
+    <!-- Form View -->
+    <record model="ir.ui.view" id="res_city_neighborhood_form">
+            <field name="name">res.city.neighborhood.form</field>
+            <field name="model">res.city.neighborhood</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Barrio">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <group colspan="4" col="2">
+                        <field name="shape" widget="geo_edit_map"/>
+                    </group>
+                </form>
+            </field>
+    </record>
+    <!-- Tree View -->
+    <record model="ir.ui.view" id="res_city_neighborhood_tree">
+            <field name="name">res.city.neighborhood.tree</field>
+            <field name="model">res.city.neighborhood</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="UPZ">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+    </record>
+    <!-- Geoengine View -->
+    <record  model="ir.ui.view" id="res_city_neighborhood_geoengine" >
+        <field name="name">res.city.neighborhood.geoengine</field>
+        <field name="type">geoengine</field>
+        <field name="model">res.city.neighborhood</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="code"/>
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+    <!-- Geoengine Base Raster -->
+    <record model="geoengine.raster.layer" id="res_city_neighborhoodt_raster">
+                <field name="raster_type">osm</field>
+                <field name="name">Base Barrios</field>
+                <field name="view_id" ref="res_city_neighborhood_geoengine"/>
+                <field eval="0" name="overlay"/>
+    </record>
+    <!-- Geoengine Vector Layer -->
+    <record  model="geoengine.vector.layer" id="res_city_neighborhood_vector">
+                <field name="geo_field_id" ref="thakhi.field_res_city_neighborhood_shape"/>
+                <field name="name">Barrio</field>
+                <field name="view_id" ref="res_city_neighborhood_geoengine"/>
+                <field name="geo_repr">basic</field>
+                <field name="attribute_field_id" ref="thakhi.field_res_city_neighborhood_code"/>
+                <field name="begin_color">#FF680A</field>
+    </record>
+</data>
+</openerp>
