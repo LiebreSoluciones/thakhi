@@ -122,6 +122,19 @@
             </form>
         </field>
     </record>
+    <record model="ir.ui.view" id="necesidad_tree">
+        <field name="name">thakhi.necesidad.tree</field>
+        <field name="model">thakhi.necesidad</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Necesidades">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="direccion"/>
+                <field name="solicitud_id"/>
+            </tree>
+        </field>
+    </record>
     <record model="ir.ui.view" id="necesidad_search">
         <field name="name">thakhi.necesidad.search</field>
         <field name="model">thakhi.necesidad</field>
@@ -129,15 +142,15 @@
         <field name="arch" type="xml">
             <search string="Necesidades">
                 <group>
-                    <filter name="abiertas" string="Abiertas" domain="[('state','=','abierta')]" help="Lista las solicitudes abiertas" icon="stock_log"/>
-                    <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las solicitudes cerradas" icon="kanban-apply"/>
-                    <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las solicitudes rechazadas" icon="gtk-cancel"/>
+                    <filter name="abiertas" string="Abiertas" domain="[('state','=','abierta')]" help="Lista las necesidades abiertas" icon="stock_log"/>
+                    <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las necesidades cerradas" icon="kanban-apply"/>
+                    <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las necesidades rechazadas" icon="gtk-cancel"/>
                     <separator orientation="vertical"/>
                     <field name="direccion"/>
                 </group>
                 <newline/>
                 <group expand="0" string="Agrupar por">
-                    <filter string="Necesidad" name="group_necesidad_id" icon="terp-personal" domain="[]" context="{'group_by':'necesidad_id'}"/>
+                    <filter string="Solicitud" name="group_solicitud_id" icon="terp-personal" domain="[]" context="{'group_by':'solicitud_id'}"/>
                 </group>
             </search>
         </field>
@@ -204,6 +217,52 @@
                     </notebook>
                 </group>
             </form>
+        </field>
+    </record>
+        <record model="ir.ui.view" id="inspeccion_tree">
+        <field name="name">thakhi.inspeccion.tree</field>
+        <field name="model">thakhi.inspeccion</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Inspecciones">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="fecha"/>
+                <field name="funcionario_id"/>
+                <field name="valor_total"/>
+                <field name="elemento_infraestructura_id"/>
+                <field name="tipo_trabajo_id"/>  
+                <field name="actividad_obra_ids"/>
+                <field name="causa_ids"/>
+                <field name="necesidad_id"/>
+<!--                <field name="solicitud_id"/>  -->
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="inspeccion_search">
+        <field name="name">thakhi.inspeccion.search</field>
+        <field name="model">thakhi.inspeccion</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Inspecciones">
+                <group>
+                    <filter name="abiertas" string="Abiertas" domain="[('state','=','abierta')]" help="Lista las inspecciones abiertas" icon="stock_log"/>
+                    <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las inspecciones cerradas" icon="kanban-apply"/>
+                    <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las inspecciones rechazadas" icon="gtk-cancel"/>
+                    <separator orientation="vertical"/>
+<!--                    <field name="solicitud_id"/>  -->
+                    <field name="necesidad_id"/>
+                    <field name="funcionario_id"/>
+                    <field name="fecha"/>
+                </group>
+                <newline/>
+                <group expand="0" string="Agrupar por">
+<!--                    <filter string="Solicitud" name="group_solicitud_id" icon="terp-personal" domain="[]" context="{'group_by':'solicitud_id'}"/> -->
+                    <filter string="Necesidad" name="group_necesidad_id" icon="gtk-file" domain="[]" context="{'group_by':'necesidad_id'}"/>
+                    <filter string="Funcionario" name="group_funcionario_id" icon="terp-personal" domain="[]" context="{'group_by':'funcionario_id'}"/>
+                    <filter string="fecha" name="group_fecha_id" icon="terp-go-month" domain="[]" context="{'group_by':'fecha'}"/>
+                </group>
+            </search>
         </field>
     </record>
     <!--
