@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <menuitem name="Contratos" id="thakhi_contrato_menu_root" parent="thakhi_obra_menu_nav"  sequence="15"/>
+
+    <!--
+    ========================================================================================
+    Contrato
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_contrato_action">
+        <field name="name">Contratos</field>
+        <field name="res_model">thakhi.contrato</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Contratos" id="thakhi_contrato_menu" parent="thakhi_contrato_menu_root"
+        action="thakhi_contrato_action"
+    />
+    <record model="ir.ui.view" id="contrato_form">
+        <field name="name">thakhi.contrato.form</field>
+        <field name="model">thakhi.contrato</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Contratos">
+                <field name="state" widget="statusbar"/>
+                <group colspan="4">
+                    <field name="name"/>
+                    <field name="objeto"/>
+                    <field name="tipo"/>
+                    <field name="contratista_id"/>
+                    <field name="is_interventoria_interna"/>
+                    <field name="contrato_interventoria_id"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_fin"/>
+                    <field name="valor_total"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</data>
+</openerp>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <menuitem name="Planificación" id="thakhi_planificacion_menu_root" parent="thakhi_obra_menu_nav" sequence="10"/>
+
+    <!--
+    ========================================================================================
+    Proyectos - Planificación
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_planificacion_action">
+        <field name="name">Planificaciones</field>
+        <field name="res_model">project.project</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Proyectos" id="thakhi_planificacion_menu" parent="thakhi_planificacion_menu_root"
+        action="thakhi_planificacion_action"
+    />
+
+    <record model="ir.ui.view" id="project_form">
+        <field name="name">project.project.form.thakhi</field>
+        <field name="model">project.project</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <page string="Administration" position="before">
+               <page string="Contratos">
+                    <field name="contrato_obra_id"/>
+                    <field name="is_interventoria_interna"/>
+                    <field name="contrato_interventoria_id"/>
+                </page>
+            </page>
+            <page string="Notes" position="after">
+                 <page string="Necesidades">
+                     <field name="necesidad_ids" nolabel="1"/>
+                 </page>
+                 <page string="Inspecciones relacionadas">
+                     <field name="inspeccion_ids" nolabel="1"/>
+                 </page>
+            </page>
+        </field>
+    </record>
+</data>
+</openerp>

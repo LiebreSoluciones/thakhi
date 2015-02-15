@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <menuitem name="Obras" id="thakhi_obra_menu_nav" sequence="5"/>
+    <menuitem name="Solicitudes" id="thakhi_solicitud_menu_root" parent="thakhi_obra_menu_nav" sequence="5"/>
+    <menuitem name="Configuración" id="thakhi_configuracion_menu_root" parent="thakhi_obra_menu_nav" sequence="50"/>
+
+    <!--
+    ========================================================================================
+    Solicitud
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_solicitud_action">
+        <field name="name">Solicitudes</field>
+        <field name="res_model">thakhi.solicitud</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Solicitudes" id="thakhi_solicitud_menu" parent="thakhi_solicitud_menu_root"
+        action="thakhi_solicitud_action"
+    />
+    <record model="ir.ui.view" id="solicitud_tree">
+        <field name="name">thakhi.solicitud.tree</field>
+        <field name="model">thakhi.solicitud</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Solicitudes">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="radicado"/>
+                <field name="fecha_radicado"/>
+                <field name="solicitante_id"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="solicitud_form">
+        <field name="name">thakhi.solicitud.form</field>
+        <field name="model">thakhi.solicitud</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Solicitudes">
+                <field name="state" widget="statusbar"/>
+                <group colspan="4">
+                    <field name="name"/>
+                    <field name="solicitante_id"/>
+                    <field name="radicado"/>
+                    <field name="fecha_radicado"/>
+                </group>
+                <group colspan="4">
+                    <notebook>
+                        <page string="Description">
+                            <field name="descripcion" nolabel="1"/>
+                        </page>
+                        <page string="Necesidades">
+                            <field name="necesidad_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="solicitud_search">
+        <field name="name">thakhi.solicitud.search</field>
+        <field name="model">thakhi.solicitud</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Solicitudes">
+                <group>
+                    <filter name="abiertas" string="Abiertas" domain="[('state','=','abierta')]" help="Lista las solicitudes abiertas" icon="stock_log"/>
+                    <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las solicitudes cerradas" icon="kanban-apply"/>
+                    <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las solicitudes rechazadas" icon="gtk-cancel"/>
+                    <separator orientation="vertical"/>
+                    <field name="radicado"/>
+                    <field name="solicitante_id"/>
+                </group>
+                <newline/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Solicitante" name="group_solicitante_id" icon="terp-personal" domain="[]" context="{'group_by':'solicitante_id'}"/>
+                    <separator orientation="vertical"/>
+                    <filter string="Fecha Radicado" icon="terp-go-month" domain="[]" context="{'group_by':'fecha_radicado'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!--
+    ========================================================================================
+    Necesidad
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_necesidad_action">
+        <field name="name">Necesidades</field>
+        <field name="res_model">thakhi.necesidad</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Necesidades" id="thakhi_necesidad_menu" parent="thakhi_solicitud_menu_root"
+        action="thakhi_necesidad_action"
+    />
+    <record model="ir.ui.view" id="necesidad_form">
+        <field name="name">thakhi.necesidad.form</field>
+        <field name="model">thakhi.necesidad</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Necesidades">
+                <field name="state" widget="statusbar"/>
+                <group colspan="4">
+                    <field name="solicitud_id" readonly="1"/>
+                    <field name="name"/>
+                    <field name="direccion"/>
+                    <field name="project_id"/>
+                </group>
+                <group colspan="4">
+                    <notebook>
+                        <page string="Description">
+                            <field name="descripcion" nolabel="1"/>
+                        </page>
+                        <page string="Inspecciones">
+                            <field name="inspeccion_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="necesidad_search">
+        <field name="name">thakhi.necesidad.search</field>
+        <field name="model">thakhi.necesidad</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Necesidades">
+                <group>
+                    <filter name="abiertas" string="Abiertas" domain="[('state','=','abierta')]" help="Lista las solicitudes abiertas" icon="stock_log"/>
+                    <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las solicitudes cerradas" icon="kanban-apply"/>
+                    <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las solicitudes rechazadas" icon="gtk-cancel"/>
+                    <separator orientation="vertical"/>
+                    <field name="direccion"/>
+                </group>
+                <newline/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Necesidad" name="group_necesidad_id" icon="terp-personal" domain="[]" context="{'group_by':'necesidad_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--
+    ========================================================================================
+    Inspecciones
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_inspeccion_action">
+        <field name="name">Inspecciones</field>
+        <field name="res_model">thakhi.inspeccion</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+    <menuitem name="Inspecciones" id="thakhi_inspeccion_menu" parent="thakhi_solicitud_menu_root"
+        action="thakhi_inspeccion_action"
+    />
+    <record model="ir.ui.view" id="inspeccion_calendar">
+        <field name="name">thakhi.inspeccion.calendar</field>
+        <field name="model">thakhi.inspeccion</field>
+        <field name="type">calendar</field>
+        <field name="arch" type="xml">
+            <calendar color="funcionario_id" date_delay="duracion_programada_horas" date_start="fecha" string="Inspecciones">
+                <field name="necesidad_id"/>
+            </calendar>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="inspeccion_form">
+        <field name="name">thakhi.inspeccion.form</field>
+        <field name="model">thakhi.inspeccion</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Inspecciones">
+                <field name="state" widget="statusbar"/>
+                <group colspan="4">
+                    <field name="necesidad_id" readonly="1"/>
+                    <field name="name"/>
+                    <field name="funcionario_id"/>
+                    <field name="fecha"/>
+                    <field name="duracion_programada_horas"/>
+                    <field name="elemento_infraestructura_id"/>
+                    <field name="tipo_trabajo_id"/>
+                    <field name="project_id"/>
+                </group>
+                <group colspan="4">
+                    <notebook>
+                        <page string="Actividades de Obra">
+                            <field name="actividad_obra_ids" nolabel="1" colspan="4">
+                                <tree editable="top">
+                                    <field name="product_id" />
+                                    <field name="uom_id" />
+                                    <field name="cantidad" />
+                                    <field name="valor_unidad"/>
+                                    <field name="valor_total"/>
+                                </tree>
+                            </field>
+                            <field name="valor_total"/>
+                        </page>
+                        <page string="Causas">
+                            <field name="causa_ids" nolabel="1" />
+                        </page>
+                    </notebook>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!--
+    ========================================================================================
+    Elemento de Infraestructura
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="elemento_infraestructura_action">
+        <field name="name">Elemento de Infraestructura</field>
+        <field name="res_model">thakhi.elemento_infraestructura</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Elemento de Infraestructura" id="thakhi_elemento_infraestructura_menu" parent="thakhi_configuracion_menu_root"
+        action="elemento_infraestructura_action"
+    />
+    <record model="ir.ui.view" id="elemento_infraestructura_form">
+        <field name="name">thakhi.elemento_infraestructura.form</field>
+        <field name="model">thakhi.elemento_infraestructura</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Elemento de Infraestructura">
+                <group colspan="4">
+                    <field name="name"/>
+                    <field name="descripcion"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!--
+    ========================================================================================
+    Tipo de Trabajo
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="tipo_trabajo_action">
+        <field name="name">Tipo de trabajo</field>
+        <field name="res_model">thakhi.tipo_trabajo</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Tipo de Trabajo" id="thakhi_tipo_trabajo_menu" parent="thakhi_configuracion_menu_root"
+        action="tipo_trabajo_action"
+    />
+    <record model="ir.ui.view" id="tipo_trabajo_form">
+        <field name="name">thakhi.tipo_trabajo.form</field>
+        <field name="model">thakhi.tipo_trabajo</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Trabajo">
+                <group colspan="4">
+                    <field name="name"/>
+                    <field name="elemento_infraestructura_id"/>
+                    <field name="descripcion"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="tipo_trabajo_tree">
+        <field name="name">thakhi.tipo_trabajo.tree</field>
+        <field name="model">thakhi.tipo_trabajo</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Tipo de Trabajo">
+                <field name="elemento_infraestructura_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!--
+    ========================================================================================
+    Actividad de Obra
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="actividad_obra_action">
+        <field name="name">Actividad de Obra</field>
+        <field name="res_model">thakhi.actividad_obra</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- <menuitem name="Actividad de Obra" id="thakhi_actividad_obra_menu" parent="thakhi_solicitud_menu_root"
+        action="actividad_obra_action"
+    />-->
+    <record model="ir.ui.view" id="actividad_obra_form">
+        <field name="name">thakhi.actividad_obra.form</field>
+        <field name="model">thakhi.actividad_obra</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Actividad de Obra">
+                <group colspan="4">
+                    <field name="name"/>
+                    <field name="tipo_trabajo_id"/>
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="cantidad"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!--
+    ========================================================================================
+    Causas daño
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="causa_dano_action">
+        <field name="name">Causas del Daño</field>
+        <field name="res_model">thakhi.causa_dano</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Causas del Daño" id="thakhi_causa_dano_menu" parent="thakhi_configuracion_menu_root"
+        action="causa_dano_action"
+    />
+    <record model="ir.ui.view" id="causa_dano_form">
+        <field name="name">thakhi.causa_dano.form</field>
+        <field name="model">thakhi.causa_dano</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Causas del Daño">
+                <group colspan="4">
+                    <field name="name"/>
+                    <field name="descripcion"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</data>
+</openerp>
