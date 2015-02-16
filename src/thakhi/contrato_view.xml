@@ -25,17 +25,71 @@
             <form string="Contratos">
                 <field name="state" widget="statusbar"/>
                 <group colspan="4">
-                    <field name="name"/>
-                    <field name="objeto"/>
-                    <field name="tipo"/>
-                    <field name="contratista_id"/>
-                    <field name="is_interventoria_interna"/>
-                    <field name="contrato_interventoria_id"/>
-                    <field name="fecha_inicio"/>
-                    <field name="fecha_fin"/>
-                    <field name="valor_total"/>
+                    <group colspan="2">
+	                 <field name="name"/>
+	                 <field name="state"/>
+	                 <field name="tipo"/>
+	                 <field name="contratista_id"/>
+	                 <field name="fecha_inicio"/>
+                         <field name="fecha_fin"/>
+                         <field name="valor_total"/>
+	            </group>
+	            <group colspan="2">
+	                <field name="objeto"/>
+	            </group>
+                    <group colspan="4">
+                        <field name="contrato_interventoria_id"/>
+                        <field name="is_interventoria_interna"/>
+                    </group>
                 </group>
             </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="contrato_tree">
+        <field name="name">thakhi.contrato.tree</field>
+        <field name="model">thakhi.contrato</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Contratos">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="objeto"/>
+                <field name="tipo"/>
+                <field name="contratista_id"/>
+                <field name="is_interventoria_interna"/>
+                <field name="contrato_interventoria_id"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="valor_total"/>
+<!--                <field name="necesidad_id"/>  -->
+<!--                <field name="solicitud_id"/>  -->
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="contrato_search">
+        <field name="name">thakhi.contrato.search</field>
+        <field name="model">thakhi.contrato</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Contratos">
+                <group>
+                    <filter name="abiertas" string="Abiertas" domain="[('state','=','abierta')]" help="Lista las inspecciones abiertas" icon="stock_log"/>
+                    <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las inspecciones cerradas" icon="kanban-apply"/>
+                    <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las inspecciones rechazadas" icon="gtk-cancel"/>
+                    <separator orientation="vertical"/>
+<!--                    <field name="solicitud_id"/>  -->
+                    <field name="tipo"/>
+                    <field name="contratista_id"/>
+                </group>
+                <newline/>
+                <group expand="0" string="Agrupar por">
+<!--                    <filter string="Solicitud" name="group_solicitud_id" icon="terp-personal" domain="[]" context="{'group_by':'solicitud_id'}"/> -->
+<!--                    <filter string="Necesidad" name="group_necesidad_id" icon="gtk-file" domain="[]" context="{'group_by':'necesidad_id'}"/>      -->
+                    <filter string="Contratista" name="group_contratista_id" icon="terp-personal" domain="[]" context="{'group_by':'contratista_id'}"/>
+                    <filter string="Tipo Contrato" name="group_tipocontrato_id" icon="gtk-properties" domain="[]" context="{'group_by':'tipo'}"/>
+                    <filter string="Fecha Inicio" name="group_fechainicio_id" icon="terp-go-month" domain="[]" context="{'group_by':'fecha_inicio'}"/>
+                </group>
+            </search>
         </field>
     </record>
 </data>
