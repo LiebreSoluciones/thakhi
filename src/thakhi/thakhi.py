@@ -20,6 +20,7 @@
 ###############################################################################
 
 from osv import fields, osv
+from base_geoengine import geo_model
 
 class thakhi_solicitud(osv.osv):
     _name = "thakhi.solicitud"
@@ -53,7 +54,7 @@ class thakhi_solicitud(osv.osv):
 thakhi_solicitud()
 
 
-class thakhi_necesidad(osv.osv):
+class thakhi_necesidad(geo_model.GeoModel):
     _name = "thakhi.necesidad"
 
     _columns = {
@@ -72,6 +73,7 @@ class thakhi_necesidad(osv.osv):
             'Inspecciones',
         ),
         'project_id': fields.many2one('project.project','Proyecto'),
+        'shape': fields.geo_point('Ubicación'),
     }
 
     _defaults = {
@@ -97,7 +99,9 @@ class thakhi_inspeccion(osv.osv):
         'necesidad_id': fields.many2one('thakhi.necesidad','Necesidad'),
         'funcionario_id': fields.many2one('res.users','Funcionario'),
         'elemento_infraestructura_id': fields.many2one('thakhi.elemento_infraestructura','Elemento'),
-        'tipo_trabajo_id': fields.many2one('thakhi.tipo_trabajo','Tipo de Trabajo'),
+        'tipo_trabajo_id': fields.many2one('thakhi.tipo_trabajo','Tipo de Trabajo',
+            domain="[('elemento_infraestructura_id','=',elemento_infraestructura_id)]",
+        ),
         'actividad_obra_ids': fields.one2many('thakhi.actividad_obra',
             'inspeccion_id',
             'Actividades de Obra',

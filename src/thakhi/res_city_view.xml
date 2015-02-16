@@ -27,7 +27,7 @@
                     <field name="code"/>
                     <field name="name"/>
                     <group colspan="4" col="2">
-                        <field name="shape" widget="geo_edit_map"/>
+                        <field name="shape" widget="geo_edit_map" readonly="1"/>
                     </group>
                 </form>
             </field>
@@ -95,7 +95,7 @@
                     <field name="code"/>
                     <field name="name"/>
                     <group colspan="4" col="2">
-                        <field name="shape" widget="geo_edit_map"/>
+                        <field name="shape" widget="geo_edit_map" readonly="1"/>
                     </group>
                 </form>
             </field>
@@ -163,7 +163,7 @@
                     <field name="code"/>
                     <field name="name"/>
                     <group colspan="4" col="2">
-                        <field name="shape" widget="geo_edit_map"/>
+                        <field name="shape" widget="geo_edit_map" readonly="1"/>
                     </group>
                 </form>
             </field>
@@ -231,7 +231,7 @@
                     <field name="code"/>
                     <field name="name"/>
                     <group colspan="4" col="2">
-                        <field name="shape" widget="geo_edit_map"/>
+                        <field name="shape" widget="geo_edit_map" readonly="1"/>
                     </group>
                 </form>
             </field>

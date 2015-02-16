@@ -7,6 +7,36 @@
 
     <!--
     ========================================================================================
+    Solicitantes
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_res_partner_address_action">
+        <field name="name">Solicitantes</field>
+        <field name="res_model">res.partner.address</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Solicitantes" id="thakhi_solicitantes_menu" parent="thakhi_solicitud_menu_root"
+        action="thakhi_res_partner_address_action"
+    />
+
+    <!--
+    ========================================================================================
+    Actividad de Obras
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_product_action">
+        <field name="name">Actividad de Obra</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Actividades de obra" id="thakhi_product_menu" parent="thakhi_configuracion_menu_root"
+        action="thakhi_product_action"
+    />
+
+    <!--
+    ========================================================================================
     Solicitud
     ========================================================================================
     -->
@@ -91,7 +121,7 @@
         <field name="name">Necesidades</field>
         <field name="res_model">thakhi.necesidad</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,geoengine</field>
     </record>
     <menuitem name="Necesidades" id="thakhi_necesidad_menu" parent="thakhi_solicitud_menu_root"
         action="thakhi_necesidad_action"
@@ -108,11 +138,15 @@
                     <field name="name"/>
                     <field name="direccion"/>
                     <field name="project_id"/>
+                    <field name="state"/>
                 </group>
                 <group colspan="4">
                     <notebook>
                         <page string="Description">
                             <field name="descripcion" nolabel="1"/>
+                            <group colspan="4" col="2">
+                                <field name="shape" widget="geo_edit_map"/>
+                            </group>
                         </page>
                         <page string="Inspecciones">
                             <field name="inspeccion_ids" nolabel="1"/>
@@ -151,9 +185,40 @@
                 <newline/>
                 <group expand="0" string="Agrupar por">
                     <filter string="Solicitud" name="group_solicitud_id" icon="terp-personal" domain="[]" context="{'group_by':'solicitud_id'}"/>
+                    <filter string="Proyecto" name="group_proyecto_id" icon="terp-go-today" domain="[]" context="{'group_by':'project_id'}"/>
                 </group>
             </search>
         </field>
+    </record>
+    <!-- Geoengine View -->
+    <record  model="ir.ui.view" id="necesidad_geoengine" >
+        <field name="name">necesidad.geoengine</field>
+        <field name="type">geoengine</field>
+        <field name="model">thakhi.necesidad</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="name"/>
+                <field name="direccion"/>
+                <field name="solicitud_id"/>
+                <field name="project_id"/>
+            </form>
+        </field>
+    </record>
+    <!-- Geoengine Base Raster -->
+    <record model="geoengine.raster.layer" id="necesidad_raster">
+                <field name="raster_type">osm</field>
+                <field name="name">Base necesidad</field>
+                <field name="view_id" ref="necesidad_geoengine"/>
+                <field eval="0" name="overlay"/>
+    </record>
+    <!-- Geoengine Vector Layer -->
+    <record  model="geoengine.vector.layer" id="necesidad_vector">
+                <field name="geo_field_id" ref="thakhi.field_thakhi_necesidad_shape"/>
+                <field name="name">Necesidad</field>
+                <field name="view_id" ref="necesidad_geoengine"/>
+                <field name="geo_repr">basic</field>
+                <field name="attribute_field_id" ref="thakhi.field_thakhi_necesidad_state"/>
+                <field name="begin_color">#FF680A</field>
     </record>
 
     <!--

@@ -92,5 +92,20 @@
             </search>
         </field>
     </record>
+    <!--
+    ========================================================================================
+    Terceros
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_res_partner_action">
+        <field name="name">Terceros</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Terceros" id="thakhi_res_partner_menu" parent="thakhi_contrato_menu_root"
+        action="thakhi_res_partner_action"
+    />
+
 </data>
 </openerp>

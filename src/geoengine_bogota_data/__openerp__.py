@@ -27,7 +27,7 @@
         "description": """
 Datos de los mapas base de bogota
         """,
-        "depends" : ['base', 'thakhi'],
+        "depends" : ['base'],
         "demo_xml" : [],
         "init_xml" : [
                         'res_city_disctrict.xml',
