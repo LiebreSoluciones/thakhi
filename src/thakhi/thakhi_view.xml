@@ -228,6 +228,7 @@
         <field name="name">necesidad.geoengine</field>
         <field name="type">geoengine</field>
         <field name="model">thakhi.necesidad</field>
+        <field name="default_extent">-8258256.53593,499200.178597,-8236867.077879,522048.507704</field>
         <field name="arch" type="xml">
             <form>
                 <field name="name" string="Asunto"/>
