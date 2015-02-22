@@ -153,6 +153,20 @@
     </record>
     <menuitem name="UPZ" id="res_city_subdistrict_menu" parent="res_city_menu_root" action="res_city_subdistrict_action"/>
 
+    <record model="ir.ui.view" id="res_city_subdistrict_search">
+        <field name="name">res.city.subdistrict.search</field>
+        <field name="model">res.city.subdistrict</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="UPZ">
+                <group>
+                    <field name="name"/>
+                    <field name="district_name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!-- Form View -->
     <record model="ir.ui.view" id="res_city_subdistrict_form">
             <field name="name">res.city.subdistrict.form</field>
@@ -162,6 +176,7 @@
                 <form string="UPZ">
                     <field name="code"/>
                     <field name="name"/>
+                    <field name="district_name" readonly="1"/>
                     <group colspan="4" col="2">
                         <field name="shape" widget="geo_edit_map" readonly="1"/>
                     </group>
@@ -177,6 +192,7 @@
                 <tree string="UPZ">
                     <field name="code"/>
                     <field name="name"/>
+                    <field name="district_name"/>
                 </tree>
             </field>
     </record>
@@ -189,6 +205,7 @@
             <form>
                 <field name="code"/>
                 <field name="name"/>
+                <field name="district_name"/>
             </form>
         </field>
     </record>
@@ -221,6 +238,20 @@
     </record>
     <menuitem name="Barrios" id="res_city_neighborhood_menu" parent="res_city_menu_root" action="res_city_neighborhood_action"/>
 
+    <record model="ir.ui.view" id="res_city_neighborhood_search">
+        <field name="name">res.city.neighborhood.search</field>
+        <field name="model">res.city.neighborhood</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Barrio">
+                <group>
+                    <field name="name"/>
+                    <field name="district_name"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!-- Form View -->
     <record model="ir.ui.view" id="res_city_neighborhood_form">
             <field name="name">res.city.neighborhood.form</field>
@@ -230,6 +261,7 @@
                 <form string="Barrio">
                     <field name="code"/>
                     <field name="name"/>
+                    <field name="district_name" readonly="1"/>
                     <group colspan="4" col="2">
                         <field name="shape" widget="geo_edit_map" readonly="1"/>
                     </group>
@@ -245,6 +277,7 @@
                 <tree string="UPZ">
                     <field name="code"/>
                     <field name="name"/>
+                    <field name="district_name"/>
                 </tree>
             </field>
     </record>
@@ -257,6 +290,7 @@
             <form>
                 <field name="code"/>
                 <field name="name"/>
+                <field name="district_name"/>
             </form>
         </field>
     </record>

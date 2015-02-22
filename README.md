@@ -8,7 +8,7 @@ Módulo de solicitudes, necesidades e inspecciones de obra
 
 - Instalar dependencias para geoengine
 
-    sudo apt-get install python-shapely
+    sudo apt-get install python-shapely python-pyproj
     sudo pip install geojson
 
 - Instalar geoengine addon

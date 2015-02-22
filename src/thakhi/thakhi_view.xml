@@ -26,13 +26,38 @@
     ========================================================================================
     -->
     <record model="ir.actions.act_window" id="thakhi_product_action">
-        <field name="name">Actividad de Obra</field>
+        <field name="name">Trabajos/Materiales de obra</field>
         <field name="res_model">product.product</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Actividades de obra" id="thakhi_product_menu" parent="thakhi_configuracion_menu_root"
+    <menuitem name="Trabajos/Materiales de Obra" id="thakhi_product_menu" parent="thakhi_configuracion_menu_root"
         action="thakhi_product_action"
+    />
+
+    <!--
+    ========================================================================================
+    Unidades de medida y categorias de uom
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_product_uom_action">
+        <field name="name">Unidades de medida</field>
+        <field name="res_model">product.uom</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Unidades de medida" id="thakhi_product_uom_menu" parent="thakhi_configuracion_menu_root"
+        action="thakhi_product_uom_action"
+    />
+
+    <record model="ir.actions.act_window" id="thakhi_product_uom_categ_action">
+        <field name="name">Categorias de medida</field>
+        <field name="res_model">product.uom.categ</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Categorias de medida" id="thakhi_product_uom_categ_menu" parent="thakhi_configuracion_menu_root"
+        action="thakhi_product_uom_categ_action"
     />
 
     <!--
@@ -69,9 +94,9 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Solicitudes">
-                <field name="state" widget="statusbar"/>
                 <group colspan="4">
                     <field name="name"/>
+                    <field name="state"/>
                     <field name="solicitante_id"/>
                     <field name="radicado"/>
                     <field name="fecha_radicado"/>
@@ -132,20 +157,23 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Necesidades">
-                <field name="state" widget="statusbar"/>
                 <group colspan="4">
                     <field name="solicitud_id" readonly="1"/>
                     <field name="name"/>
-                    <field name="direccion"/>
-                    <field name="project_id"/>
                     <field name="state"/>
+                    <field name="prioridad"/>
+                    <field name="direccion" on_change="onchange_direccion(direccion)"/>
+                    <field name="district_id"/>
+                    <field name="subdistrict_id"/>
+                    <field name="neighborhood_id"/>
+                    <field name="project_id"/>
                 </group>
                 <group colspan="4">
                     <notebook>
                         <page string="Description">
                             <field name="descripcion" nolabel="1"/>
                             <group colspan="4" col="2">
-                                <field name="shape" widget="geo_edit_map"/>
+                                <field name="shape" widget="geo_edit_map" on_change="onchange_geopoint(shape)"/>
                             </group>
                         </page>
                         <page string="Inspecciones">
@@ -164,6 +192,7 @@
             <tree string="Necesidades">
                 <field name="name"/>
                 <field name="state"/>
+                <field name="prioridad"/>
                 <field name="direccion"/>
                 <field name="solicitud_id"/>
             </tree>
@@ -181,6 +210,10 @@
                     <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las necesidades rechazadas" icon="gtk-cancel"/>
                     <separator orientation="vertical"/>
                     <field name="direccion"/>
+                    <field name="prioridad"/>
+                    <field name="district_id"/>
+                    <field name="subdistrict_id"/>
+                    <field name="neighborhood_id"/>
                 </group>
                 <newline/>
                 <group expand="0" string="Agrupar por">
@@ -197,9 +230,10 @@
         <field name="model">thakhi.necesidad</field>
         <field name="arch" type="xml">
             <form>
-                <field name="name"/>
+                <field name="name" string="Asunto"/>
                 <field name="direccion"/>
                 <field name="solicitud_id"/>
+                <field name="prioridad"/>
                 <field name="project_id"/>
             </form>
         </field>
@@ -216,9 +250,10 @@
                 <field name="geo_field_id" ref="thakhi.field_thakhi_necesidad_shape"/>
                 <field name="name">Necesidad</field>
                 <field name="view_id" ref="necesidad_geoengine"/>
-                <field name="geo_repr">basic</field>
-                <field name="attribute_field_id" ref="thakhi.field_thakhi_necesidad_state"/>
-                <field name="begin_color">#FF680A</field>
+                <field name="geo_repr">colored</field>
+                <field name="attribute_field_id" ref="thakhi.field_thakhi_necesidad_prioridad"/>
+                <field name="begin_color">#FF0000</field>
+                <field name="classification">unique</field>
     </record>
 
     <!--
@@ -251,10 +286,10 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Inspecciones">
-                <field name="state" widget="statusbar"/>
                 <group colspan="4">
                     <field name="necesidad_id" readonly="1"/>
                     <field name="name"/>
+                    <field name="state"/>
                     <field name="funcionario_id"/>
                     <field name="fecha"/>
                     <field name="duracion_programada_horas"/>
@@ -264,7 +299,7 @@
                 </group>
                 <group colspan="4">
                     <notebook>
-                        <page string="Actividades de Obra">
+                        <page string="Trabajo/Material Requerido">
                             <field name="actividad_obra_ids" nolabel="1" colspan="4">
                                 <tree editable="top">
                                     <field name="product_id" />
@@ -402,7 +437,7 @@
     ========================================================================================
     -->
     <record model="ir.actions.act_window" id="actividad_obra_action">
-        <field name="name">Actividad de Obra</field>
+        <field name="name">Trabajo/Material Requerido</field>
         <field name="res_model">thakhi.actividad_obra</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

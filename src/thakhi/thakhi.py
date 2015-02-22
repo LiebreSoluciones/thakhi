@@ -21,6 +21,7 @@
 
 from osv import fields, osv
 from base_geoengine import geo_model
+from res_city import get_details_from_point, geocode_address
 
 class thakhi_solicitud(osv.osv):
     _name = "thakhi.solicitud"
@@ -62,6 +63,11 @@ class thakhi_necesidad(geo_model.GeoModel):
         'name': fields.char('Asunto', size=128),
         'direccion': fields.char('Dirección', size=128),
         'descripcion': fields.text('Descripción'),
+        'prioridad': fields.selection(
+            [(1,'Alta'),(3,'Media'),(5,'Baja')],
+            'Prioridad',
+            required=True,
+        ),
         'state': fields.selection(
             [('abierta','Abierta'),('cerrada','Cerrada'),('rechazada','Rechazada')],
             'Estado',
@@ -74,11 +80,31 @@ class thakhi_necesidad(geo_model.GeoModel):
         ),
         'project_id': fields.many2one('project.project','Proyecto'),
         'shape': fields.geo_point('Ubicación'),
+        'district_id': fields.many2one('res.city.district','Localidad'),
+        'subdistrict_id': fields.many2one('res.city.subdistrict','UPZ'),
+        'neighborhood_id': fields.many2one('res.city.neighborhood','Barrio'),
     }
 
     _defaults = {
         'state': 'abierta',
+        'prioridad': 3,
     }
+
+    def onchange_geopoint(self, cr, uid, ids, point):
+        res = {
+            'value': get_details_from_point(cr, uid, ids, point),
+        }
+        return res
+
+    def onchange_direccion(self, cr, uid, ids, direccion):
+        res = {'value':{'shape':False}}
+        if direccion:
+            url_geocoder = self.pool.get('ir.config_parameter').get_param(cr, uid, 'geo_coder.ws.url', default='http://webidu.idu.gov.co:9090/arcgis1/rest/services/Geocodificador/GeocodeIDU/GeocodeServer/findAddressCandidates?', context=None)
+            srid = self.pool.get('ir.config_parameter').get_param(cr, uid, 'geo_coder.srid', default='esri.extra:900913', context=None)
+            zone = 1100100 #Bogota
+            point = geocode_address(direccion, srid, url_geocoder, zone)
+            res['value']['shape'] = point
+        return res
 
 thakhi_necesidad()
 
