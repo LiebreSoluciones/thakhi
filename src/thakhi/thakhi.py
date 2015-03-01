@@ -159,10 +159,6 @@ class thakhi_inspeccion(osv.osv):
             'Estado',
             required=True,
         ),
-        'elemento_infraestructura_id': fields.many2one('thakhi.elemento_infraestructura','Elemento'),
-        'tipo_trabajo_id': fields.many2one('thakhi.tipo_trabajo','Tipo de Trabajo',
-            domain="[('elemento_infraestructura_id','=',elemento_infraestructura_id)]",
-        ),
         'visita_id': fields.many2one('thakhi.visita', 'Visita', required=True),
         'necesidad_id': fields.related('visita_id', 'necesidad_id',
             type="many2one",
@@ -183,6 +179,7 @@ class thakhi_inspeccion(osv.osv):
         ),
         'valor_total': fields.float('Valor Total'),
         'project_id': fields.many2one('project.project','Proyecto'),
+        'segmento_id': fields.many2one('thakhi.segmento','Segmento', required=True),
     }
 
     _defaults = {
@@ -221,12 +218,16 @@ class thakhi_actividad_obra(osv.osv):
     _columns = {
       'name': fields.char('Nombre', size=128),
       'descripcion': fields.text('Descripción'),
+      'inspeccion_id': fields.many2one('thakhi.inspeccion','Inspección', required=True),
+      'elemento_infraestructura_id': fields.many2one('thakhi.elemento_infraestructura','Elemento'),
+      'tipo_trabajo_id': fields.many2one('thakhi.tipo_trabajo','Tipo de Trabajo',
+            domain="[('elemento_infraestructura_id','=',elemento_infraestructura_id)]",
+      ),
       'product_id': fields.many2one('product.product','Producto', required=True),
+      'cantidad': fields.float('Cantidad', required=True),
       'uom_id': fields.many2one('product.uom','Unidad de Medida', required=True),
       'valor_unidad': fields.float('Valor Unidad', required=True),
       'valor_total': fields.float('Valor Total', required=True),
-      'cantidad': fields.float('Cantidad', required=True),
-      'inspeccion_id': fields.many2one('thakhi.inspeccion','Inspección', required=True),
     }
 
 thakhi_actividad_obra()
@@ -242,3 +243,23 @@ class thakhi_causa_dano(osv.osv):
 
 
 thakhi_causa_dano()
+
+
+class thakhi_segmento(osv.osv):
+    _name = "thakhi.segmento"
+
+    _columns = {
+        'name': fields.integer('CIV (Codigo de Identificacion Vial)'),
+        'CODIGO_UPZ': fields.char('Codigo UPZ', size=50),
+        'CODIGO_LOCALIDAD': fields.char('Codigo Localidad', size=50),
+        'TIPO_CLASIFICACION_VIA': fields.integer('Tipo Clasificación Via'),
+        'TIPO_CLASIFICACION_POT': fields.integer('Tipo Clasificación POT'), 
+        'CODIGO_VIA': fields.integer('Código Via'),
+        'CODIGO_TIPO': fields.integer('Código Tipo'),
+        'NOMBRE_EJE_VIA': fields.char('Nombre Eje Via', size=50),
+        'NOMBRE_EXTREMO_INICIAL': fields.char('Nombre Extremo Inicial', size=50),
+        'NOMBRE_EXTREMO_FINAL': fields.char('Nombre Extremo Final', size=50),
+        'TIPO_MALLA': fields.char('Tipo Malla', size=50),
+    }
+
+thakhi_segmento()

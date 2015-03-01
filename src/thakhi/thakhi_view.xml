@@ -305,11 +305,10 @@
                 </group>
                 <group colspan="4">
                     <notebook>
-                        <page string="Inspecciones por elemento">
+                        <page string="Inspecciones por CIV">
                             <field name="inspeccion_ids" nolabel="1" colspan="4">
                                 <tree>
-                                    <field name="elemento_infraestructura_id"/>
-                                    <field name="tipo_trabajo_id"/>
+                                    <field name="segmento_id"/>
                                     <field name="valor_total"/>
                                     <field name="project_id"/>
                                     <field name="state"/>
@@ -388,8 +387,7 @@
                     <field name="necesidad_id" readonly="1"/>
                     <field name="name"/>
                     <field name="state"/>
-                    <field name="elemento_infraestructura_id"/>
-                    <field name="tipo_trabajo_id"/>
+                    <field name="segmento_id"/>
                     <field name="project_id"/>
                 </group>
                 <group colspan="4">
@@ -397,6 +395,8 @@
                         <page string="Trabajo/Material Requerido">
                             <field name="actividad_obra_ids" nolabel="1" colspan="4">
                                 <tree editable="top">
+                                    <field name="elemento_infraestructura_id"/>
+                                    <field name="tipo_trabajo_id"/>
                                     <field name="product_id" />
                                     <field name="uom_id" />
                                     <field name="cantidad" />
@@ -423,8 +423,6 @@
                 <field name="name"/>
                 <field name="state"/>
                 <field name="valor_total"/>
-                <field name="elemento_infraestructura_id"/>
-                <field name="tipo_trabajo_id"/>  
                 <field name="actividad_obra_ids"/>
                 <field name="causa_ids"/>
                 <field name="necesidad_id"/>
@@ -542,6 +540,7 @@
             <form string="Actividad de Obra">
                 <group colspan="4">
                     <field name="name"/>
+                    <field name="segmento_id"/>
                     <field name="tipo_trabajo_id"/>
                     <field name="product_id"/>
                     <field name="uom_id"/>
