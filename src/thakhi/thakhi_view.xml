@@ -389,6 +389,7 @@
                     <field name="state"/>
                     <field name="segmento_id"/>
                     <field name="tipo_via_id"/>
+                    <field name="tipo_trafico_id"/>
                     <field name="plan_manejo_trafico_id"/>
                     <field name="project_id"/>
                 </group>
