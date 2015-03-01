@@ -23,6 +23,7 @@ from osv import fields, osv
 from base_geoengine import geo_model
 from res_city import get_details_from_point, geocode_address
 
+
 class thakhi_solicitud(osv.osv):
     _name = "thakhi.solicitud"
 
@@ -180,15 +181,28 @@ class thakhi_inspeccion(osv.osv):
         'valor_total': fields.float('Valor Total'),
         'project_id': fields.many2one('project.project','Proyecto'),
         'segmento_id': fields.many2one('thakhi.segmento','Segmento', required=True),
-        'plan_manejo_trafico': fields.selection(
-              [('completa','Completa'),('media_calzada','Media Calzada')],
-              'PMT',
-          ),
+        'tipo_via_id': fields.related('segmento_id', 'tipo_via_id',
+            type="many2one",
+            relation="thakhi.tipo_via",
+            string="Tipo de Vía",
+            store=False,
+        ),
+        'tipo_trafico_id': fields.related('segmento_id', 'tipo_trafico_id',
+            type="many2one",
+            relation="thakhi.tipo_trafico",
+            string="Tipo de Tráfico",
+            store=False,
+        ),
+        'plan_manejo_trafico_id': fields.many2one('thakhi.plan_manejo_trafico','PMT'),
     }
 
     _defaults = {
         'state': 'abierta',
     }
+
+    _sql_constraints = [
+        ('unique_segmento_visita','unique(visita_id,segmento_id)','La visita no puede incluir varias veces el mismo segmento'),
+    ]
 
 thakhi_inspeccion()
 
@@ -211,6 +225,7 @@ class thakhi_tipo_trabajo(osv.osv):
       'name': fields.char('Nombre', size=128),
       'descripcion': fields.text('Descripción'),
       'elemento_infraestructura_id': fields.many2one('thakhi.elemento_infraestructura','Elemento'),
+      'tipo_superficie_id': fields.many2one('thakhi.tipo_superficie','Tipo Superficie'),
     }
 
 thakhi_tipo_trabajo()
@@ -224,8 +239,11 @@ class thakhi_actividad_obra(osv.osv):
       'descripcion': fields.text('Descripción'),
       'inspeccion_id': fields.many2one('thakhi.inspeccion','Inspección', required=True),
       'elemento_infraestructura_id': fields.many2one('thakhi.elemento_infraestructura','Elemento'),
+      'tipo_superficie_id': fields.many2one('thakhi.tipo_superficie', 'Tipo Superfice',
+          domain="[('elemento_infraestructura_id','=',elemento_infraestructura_id)]",
+      ),
       'tipo_trabajo_id': fields.many2one('thakhi.tipo_trabajo','Tipo de Trabajo',
-            domain="[('elemento_infraestructura_id','=',elemento_infraestructura_id)]",
+            domain="[('elemento_infraestructura_id','=',elemento_infraestructura_id),'|',('tipo_superficie_id','=',tipo_superficie_id),('tipo_superficie_id','=',False)]",
       ),
       'product_id': fields.many2one('product.product','Producto', required=True),
       'cantidad': fields.float('Cantidad', required=True),
@@ -264,6 +282,51 @@ class thakhi_segmento(osv.osv):
         'NOMBRE_EXTREMO_INICIAL': fields.char('Nombre Extremo Inicial', size=50),
         'NOMBRE_EXTREMO_FINAL': fields.char('Nombre Extremo Final', size=50),
         'TIPO_MALLA': fields.char('Tipo Malla', size=50),
+        'tipo_via_id': fields.many2one('thakhi.tipo_via','Tipo Vía'),
+        'tipo_trafico_id': fields.many2one('thakhi.tipo_trafico','Tipo Tráfico'),
     }
 
 thakhi_segmento()
+
+class thakhi_tipo_via(osv.osv):
+    _name = "thakhi.tipo_via"
+
+    _columns = {
+        'name': fields.char('Nombre', size=255),
+        'codigo': fields.char('Código', size=10),
+    }
+
+thakhi_tipo_via()
+
+
+class thakhi_tipo_trafico(osv.osv):
+    _name = "thakhi.tipo_trafico"
+
+    _columns = {
+        'name': fields.char('Nombre', size=255),
+        'codigo': fields.char('Código', size=10),
+    }
+
+thakhi_tipo_trafico()
+
+
+class thakhi_tipo_superficie(osv.osv):
+    _name = "thakhi.tipo_superficie"
+
+    _columns = {
+        'name': fields.char('Nombre', size=255),
+        'codigo': fields.char('Código', size=10),
+        'elemento_infraestructura_id': fields.many2one('thakhi.elemento_infraestructura','Elemento'),
+    }
+
+thakhi_tipo_superficie()
+
+class thakhi_plan_manejo_trafico(osv.osv):
+    _name = "thakhi.plan_manejo_trafico"
+
+    _columns = {
+        'name': fields.char('Nombre', size=255),
+        'codigo': fields.char('Código', size=10),
+    }
+
+thakhi_plan_manejo_trafico()
