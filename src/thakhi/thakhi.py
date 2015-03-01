@@ -159,7 +159,7 @@ class thakhi_inspeccion(osv.osv):
             'Estado',
             required=True,
         ),
-        'visita_id': fields.many2one('thakhi.visita', 'Visita', required=True),
+        'visita_id': fields.many2one('thakhi.visita', 'Visita'),
         'necesidad_id': fields.related('visita_id', 'necesidad_id',
             type="many2one",
             relation="thakhi.necesidad",
@@ -180,6 +180,10 @@ class thakhi_inspeccion(osv.osv):
         'valor_total': fields.float('Valor Total'),
         'project_id': fields.many2one('project.project','Proyecto'),
         'segmento_id': fields.many2one('thakhi.segmento','Segmento', required=True),
+        'plan_manejo_trafico': fields.selection(
+              [('completa','Completa'),('media_calzada','Media Calzada')],
+              'PMT',
+          ),
     }
 
     _defaults = {

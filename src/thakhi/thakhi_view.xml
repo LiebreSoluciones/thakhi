@@ -388,6 +388,7 @@
                     <field name="name"/>
                     <field name="state"/>
                     <field name="segmento_id"/>
+                    <field name="plan_manejo_trafico"/>
                     <field name="project_id"/>
                 </group>
                 <group colspan="4">
@@ -396,8 +397,8 @@
                             <field name="actividad_obra_ids" nolabel="1" colspan="4">
                                 <tree editable="top">
                                     <field name="elemento_infraestructura_id"/>
-                                    <field name="tipo_trabajo_id"/>
-                                    <field name="product_id" />
+                                    <field name="tipo_trabajo_id" string="Actividad"/>
+                                    <field name="product_id" string="Tipo de Intervención"/>
                                     <field name="uom_id" />
                                     <field name="cantidad" />
                                     <field name="valor_unidad"/>
