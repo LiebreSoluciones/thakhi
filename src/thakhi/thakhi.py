@@ -178,6 +178,7 @@ class thakhi_inspeccion(osv.osv):
                  'causa_id',
                  'Causas del daño'
         ),
+        'foto_ids': fields.one2many('thakhi.foto', 'inspeccion_id', 'Registro Fotografico'),
         'valor_total': fields.float('Valor Total'),
         'project_id': fields.many2one('project.project','Proyecto'),
         'segmento_id': fields.many2one('thakhi.segmento','Segmento', required=True),
@@ -330,3 +331,52 @@ class thakhi_plan_manejo_trafico(osv.osv):
     }
 
 thakhi_plan_manejo_trafico()
+
+
+class thakhi_foto(osv.osv):
+    _name="thakhi.foto"
+
+    def _get_binary_filesystem(self, cr, uid, ids, name, arg, context=None):
+        """ Display the binary from ir.attachment, if already exist """
+        res = {}
+        attachment_obj = self.pool.get('ir.attachment')
+
+        for record in self.browse(cr, uid, ids, context=context):
+            res[record.id] = False
+            attachment_ids = attachment_obj.search(cr, uid, [('res_model','=',self._name),('res_id','=',record.id),('binary_field','=',name)], context=context)
+            if attachment_ids:
+                img  = attachment_obj.browse(cr, uid, attachment_ids, context=context)[0].datas
+                res[record.id] = img
+        return res
+
+    def _set_binary_filesystem(self, cr, uid, id_, name, value, arg, context=None):
+        """ Create or update the binary in ir.attachment when we save the record """
+        attachment_obj = self.pool.get('ir.attachment')
+
+        attachment_ids = attachment_obj.search(cr, uid, [('res_model','=',self._name),('res_id','=',id_),('binary_field','=',name)], context=context)
+        if value:
+            if attachment_ids:
+                attachment_obj.write(cr, uid, attachment_ids, {'datas': value}, context=context)
+            else:
+                foto_name = 'Foto_{0}_{1}'.format(self._name,id_)
+                _datas_fname = 'Foto_{0}_{1}.jpg'.format(self._name,id_)
+                attachment_obj.create(cr, uid, {'res_model': self._name, 'res_id': id_, 'name': foto_name, 'binary_field': name, 'datas': value, 'datas_fname':_datas_fname}, context=context)
+        else:
+            attachment_obj.unlink(cr, uid, attachment_ids, context=context)
+
+    _columns={
+        'name': fields.char('Descripción corta',size=256, required=True),
+        'foto': fields.function(_get_binary_filesystem, fnct_inv=_set_binary_filesystem, type='binary', string='Fotografía'),
+        'descripcion': fields.text('Descripción larga'),
+        'inspeccion_id': fields.many2one('thakhi.inspeccion', 'Inspección', ondelete="cascade"),
+    }
+
+thakhi_foto()
+
+class ir_attachment(osv.osv):
+
+    _inherit = 'ir.attachment'
+
+    _columns = {
+        'binary_field': fields.char('Binary field', size=128)
+    }

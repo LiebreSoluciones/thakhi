@@ -412,6 +412,9 @@
                         <page string="Causas">
                             <field name="causa_ids" nolabel="1" />
                         </page>
+                        <page string="Registro Fotográfico">
+                            <field name="foto_ids" nolabel="1" />
+                        </page>
                     </notebook>
                 </group>
             </form>
@@ -543,7 +546,8 @@
             <form string="Actividad de Obra">
                 <group colspan="4">
                     <field name="name"/>
-                    <field name="segmento_id"/>
+                    <field name="elemento_infraestructura_id"/>
+                    <field name="tipo_superficie_id"/>
                     <field name="tipo_trabajo_id"/>
                     <field name="product_id"/>
                     <field name="uom_id"/>
@@ -578,6 +582,24 @@
                 </group>
             </form>
         </field>
+    </record>
+    <!--
+    ===========================================================================
+            Registro Fotográfico
+    ===========================================================================
+    -->
+    <!-- Form -->
+    <record model="ir.ui.view" id="thakhi_foto_form">
+            <field name="name">thakhi.foto.form</field>
+            <field name="model">thakhi.foto</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Fotografía">
+                  <field name="name" colspan="4"/>
+                  <field name="descripcion" colspan="4"/>
+                  <field name="foto" widget='image' img_width="320" img_height="240" nolabel="1" colspan="4"/>
+                </form>
+            </field>
     </record>
 </data>
 </openerp>
