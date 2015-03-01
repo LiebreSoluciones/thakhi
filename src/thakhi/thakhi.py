@@ -74,6 +74,10 @@ class thakhi_necesidad(geo_model.GeoModel):
             required=True,
         ),
         'solicitud_id': fields.many2one('thakhi.solicitud','Solicitud'),
+        'visita_ids': fields.one2many('thakhi.visita',
+            'necesidad_id',
+            'Visitas',
+        ),
         'inspeccion_ids': fields.one2many('thakhi.inspeccion',
             'necesidad_id',
             'Inspecciones',
@@ -109,6 +113,41 @@ class thakhi_necesidad(geo_model.GeoModel):
 thakhi_necesidad()
 
 
+class thakhi_visita(osv.osv):
+    _name = "thakhi.visita"
+
+    _columns = {
+      'id': fields.integer('Identificador', readonly=True),
+      'name': fields.char('Asunto', size=128),
+      'state': fields.selection(
+            [('abierta','Abierta'),('cerrada','Cerrada'),('rechazada','Rechazada')],
+            'Estado',
+            required=True,
+        ),
+        'fecha': fields.datetime('Fecha', required=True),
+        'duracion_programada_horas': fields.float('Duración', help="Duración de la inspección en horas"),
+        'necesidad_id': fields.many2one('thakhi.necesidad','Necesidad'),
+        'funcionario_id': fields.many2one('res.users','Funcionario'),
+        'solicitud_id': fields.related('necesidad_id', 'solicitud_id',
+            type="many2one",
+            relation="thakhi.solicitud",
+            string="Solicitud",
+            store=True,
+            readonly=True,
+        ),
+        'inspeccion_ids': fields.one2many('thakhi.inspeccion',
+            'visita_id',
+            'Inspecciones',
+        ),
+    }
+
+    _defaults = {
+        'state': 'abierta',
+    }
+
+thakhi_visita()
+
+
 class thakhi_inspeccion(osv.osv):
     _name = "thakhi.inspeccion"
 
@@ -120,13 +159,17 @@ class thakhi_inspeccion(osv.osv):
             'Estado',
             required=True,
         ),
-        'fecha': fields.datetime('Fecha', required=True),
-        'duracion_programada_horas': fields.float('Duración', help="Duración de la inspección"),
-        'necesidad_id': fields.many2one('thakhi.necesidad','Necesidad'),
-        'funcionario_id': fields.many2one('res.users','Funcionario'),
         'elemento_infraestructura_id': fields.many2one('thakhi.elemento_infraestructura','Elemento'),
         'tipo_trabajo_id': fields.many2one('thakhi.tipo_trabajo','Tipo de Trabajo',
             domain="[('elemento_infraestructura_id','=',elemento_infraestructura_id)]",
+        ),
+        'visita_id': fields.many2one('thakhi.visita', 'Visita', required=True),
+        'necesidad_id': fields.related('visita_id', 'necesidad_id',
+            type="many2one",
+            relation="thakhi.necesidad",
+            string="Necesidad",
+            store=True,
+            readonly=True,
         ),
         'actividad_obra_ids': fields.one2many('thakhi.actividad_obra',
             'inspeccion_id',

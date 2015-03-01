@@ -18,6 +18,7 @@
     </record>
     <menuitem name="Solicitantes" id="thakhi_solicitantes_menu" parent="thakhi_solicitud_menu_root"
         action="thakhi_res_partner_address_action"
+        sequence="2"
     />
 
     <!--
@@ -73,6 +74,7 @@
     </record>
     <menuitem name="Solicitudes" id="thakhi_solicitud_menu" parent="thakhi_solicitud_menu_root"
         action="thakhi_solicitud_action"
+        sequence="5"
     />
     <record model="ir.ui.view" id="solicitud_tree">
         <field name="name">thakhi.solicitud.tree</field>
@@ -150,6 +152,7 @@
     </record>
     <menuitem name="Necesidades" id="thakhi_necesidad_menu" parent="thakhi_solicitud_menu_root"
         action="thakhi_necesidad_action"
+        sequence="10"
     />
     <record model="ir.ui.view" id="necesidad_form">
         <field name="name">thakhi.necesidad.form</field>
@@ -176,8 +179,11 @@
                                 <field name="shape" widget="geo_edit_map" on_change="onchange_geopoint(shape)"/>
                             </group>
                         </page>
+                        <page string="Visitas">
+                            <field name="visita_ids" nolabel="1"/>
+                        </page>
                         <page string="Inspecciones">
-                            <field name="inspeccion_ids" nolabel="1"/>
+                            <field name="inspeccion_ids" nolabel="1" readonly="True"/>
                         </page>
                     </notebook>
                 </group>
@@ -233,6 +239,7 @@
             <form>
                 <field name="name" string="Asunto"/>
                 <field name="direccion"/>
+                <field name="state"/>
                 <field name="solicitud_id"/>
                 <field name="prioridad"/>
                 <field name="project_id"/>
@@ -259,34 +266,35 @@
 
     <!--
     ========================================================================================
-    Inspecciones
+    Visita
     ========================================================================================
     -->
-    <record model="ir.actions.act_window" id="thakhi_inspeccion_action">
-        <field name="name">Inspecciones</field>
-        <field name="res_model">thakhi.inspeccion</field>
+    <record model="ir.actions.act_window" id="thakhi_visita_action">
+        <field name="name">Visitas</field>
+        <field name="res_model">thakhi.visita</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar</field>
     </record>
-    <menuitem name="Inspecciones" id="thakhi_inspeccion_menu" parent="thakhi_solicitud_menu_root"
-        action="thakhi_inspeccion_action"
+    <menuitem name="Visitas" id="thakhi_visita_menu" parent="thakhi_solicitud_menu_root"
+        action="thakhi_visita_action"
+        sequence="15"
     />
-    <record model="ir.ui.view" id="inspeccion_calendar">
-        <field name="name">thakhi.inspeccion.calendar</field>
-        <field name="model">thakhi.inspeccion</field>
+    <record model="ir.ui.view" id="visita_calendar">
+        <field name="name">thakhi.visita.calendar</field>
+        <field name="model">thakhi.visita</field>
         <field name="type">calendar</field>
         <field name="arch" type="xml">
-            <calendar color="funcionario_id" date_delay="duracion_programada_horas" date_start="fecha" string="Inspecciones">
+            <calendar color="funcionario_id" date_delay="duracion_programada_horas" date_start="fecha" string="Visitas">
                 <field name="necesidad_id"/>
             </calendar>
         </field>
     </record>
-    <record model="ir.ui.view" id="inspeccion_form">
-        <field name="name">thakhi.inspeccion.form</field>
-        <field name="model">thakhi.inspeccion</field>
+    <record model="ir.ui.view" id="visita_form">
+        <field name="name">thakhi.visita.form</field>
+        <field name="model">thakhi.visita</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Inspecciones">
+            <form string="Visitas">
                 <group colspan="4">
                     <field name="necesidad_id" readonly="1"/>
                     <field name="name"/>
@@ -294,6 +302,92 @@
                     <field name="funcionario_id"/>
                     <field name="fecha"/>
                     <field name="duracion_programada_horas"/>
+                </group>
+                <group colspan="4">
+                    <notebook>
+                        <page string="Inspecciones por elemento">
+                            <field name="inspeccion_ids" nolabel="1" colspan="4">
+                                <tree>
+                                    <field name="elemento_infraestructura_id"/>
+                                    <field name="tipo_trabajo_id"/>
+                                    <field name="valor_total"/>
+                                    <field name="project_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+            </form>
+        </field>
+    </record>
+        <record model="ir.ui.view" id="visita_tree">
+        <field name="name">thakhi.visita.tree</field>
+        <field name="model">thakhi.visita</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Visitas">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="fecha"/>
+                <field name="funcionario_id"/>
+                <field name="necesidad_id"/>
+                <field name="solicitud_id"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="visita_search">
+        <field name="name">thakhi.visita.search</field>
+        <field name="model">thakhi.visita</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Visitas">
+                <group>
+                    <filter name="abiertas" string="Abiertas" domain="[('state','=','abierta')]" help="Lista las inspecciones abiertas" icon="stock_log"/>
+                    <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las inspecciones cerradas" icon="kanban-apply"/>
+                    <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las inspecciones rechazadas" icon="gtk-cancel"/>
+                    <separator orientation="vertical"/>
+                    <field name="solicitud_id"/>
+                    <field name="necesidad_id"/>
+                    <field name="funcionario_id"/>
+                    <field name="fecha"/>
+                </group>
+                <newline/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Solicitud" name="group_solicitud_id" icon="terp-personal" domain="[]" context="{'group_by':'solicitud_id'}"/>
+                    <filter string="Necesidad" name="group_necesidad_id" icon="gtk-file" domain="[]" context="{'group_by':'necesidad_id'}"/>
+                    <filter string="Funcionario" name="group_funcionario_id" icon="terp-personal" domain="[]" context="{'group_by':'funcionario_id'}"/>
+                    <filter string="fecha" name="group_fecha_id" icon="terp-go-month" domain="[]" context="{'group_by':'fecha'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!--
+    ========================================================================================
+    Inspecciones
+    ========================================================================================
+    -->
+    <record model="ir.actions.act_window" id="thakhi_inspeccion_action">
+        <field name="name">Inspecciones</field>
+        <field name="res_model">thakhi.inspeccion</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Inspecciones" id="thakhi_inspeccion_menu" parent="thakhi_solicitud_menu_root"
+        action="thakhi_inspeccion_action"
+        sequence="20"
+    />
+    <record model="ir.ui.view" id="inspeccion_form">
+        <field name="name">thakhi.inspeccion.form</field>
+        <field name="model">thakhi.inspeccion</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Inspecciones">
+                <group colspan="4">
+                    <field name="visita_id" readonly="1"/>
+                    <field name="necesidad_id" readonly="1"/>
+                    <field name="name"/>
+                    <field name="state"/>
                     <field name="elemento_infraestructura_id"/>
                     <field name="tipo_trabajo_id"/>
                     <field name="project_id"/>
@@ -328,15 +422,12 @@
             <tree string="Inspecciones">
                 <field name="name"/>
                 <field name="state"/>
-                <field name="fecha"/>
-                <field name="funcionario_id"/>
                 <field name="valor_total"/>
                 <field name="elemento_infraestructura_id"/>
                 <field name="tipo_trabajo_id"/>  
                 <field name="actividad_obra_ids"/>
                 <field name="causa_ids"/>
                 <field name="necesidad_id"/>
-<!--                <field name="solicitud_id"/>  -->
             </tree>
         </field>
     </record>
@@ -351,21 +442,18 @@
                     <filter name="cerradas" string="Cerradas" domain="[('state','=','cerrada')]" help="Lista las inspecciones cerradas" icon="kanban-apply"/>
                     <filter name="rechazadas" string="Rechazadas" domain="[('state','=','rechazada')]" help="Lista las inspecciones rechazadas" icon="gtk-cancel"/>
                     <separator orientation="vertical"/>
-<!--                    <field name="solicitud_id"/>  -->
                     <field name="necesidad_id"/>
-                    <field name="funcionario_id"/>
-                    <field name="fecha"/>
+                    <field name="visita_id"/>
                 </group>
                 <newline/>
                 <group expand="0" string="Agrupar por">
-<!--                    <filter string="Solicitud" name="group_solicitud_id" icon="terp-personal" domain="[]" context="{'group_by':'solicitud_id'}"/> -->
+                    <filter string="Visita" name="group_visita_id" icon="gtk-file" domain="[]" context="{'group_by':'visita_id'}"/>
                     <filter string="Necesidad" name="group_necesidad_id" icon="gtk-file" domain="[]" context="{'group_by':'necesidad_id'}"/>
-                    <filter string="Funcionario" name="group_funcionario_id" icon="terp-personal" domain="[]" context="{'group_by':'funcionario_id'}"/>
-                    <filter string="fecha" name="group_fecha_id" icon="terp-go-month" domain="[]" context="{'group_by':'fecha'}"/>
                 </group>
             </search>
         </field>
     </record>
+
     <!--
     ========================================================================================
     Elemento de Infraestructura
