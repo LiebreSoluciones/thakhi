@@ -17,27 +17,11 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
-{
-        "name" : "ThaKhi",
-        "version" : "1.0",
-        "author" : "Liebre Soluciones Ltda",
-        "website" : "www.liebresoluciones.com",
-        "category" : "Project Management",
-        "description": """
-Módulo para la gestión de solicitudes de atención de daños sobre infraestructura urbana.
-        """,
-        "depends" : ['base',
-                     'project',
-                     'base_geoengine',
-                    ],
-        "demo_xml" : [],
-        "update_xml" : [
-                        'report/reports.xml',
-                        'thakhi_view.xml',
-                        'project_view.xml',
-                        'contrato_view.xml',
-                        'res_city_view.xml',
-                       ],
-        "installable": True
-}
+###############################################################################
+from report import report_sxw
+
+class visita(report_sxw.rml_parse):
+    def __init__(self, cr, uid, name, context=None):
+        super(visita, self).__init__(cr, uid, name, context=context)
+
+report_sxw.report_sxw('report.thakhi.visita', 'thakhi.visita', 'addons/thakhi/report/visita.rml', parser=visita, header=True)
