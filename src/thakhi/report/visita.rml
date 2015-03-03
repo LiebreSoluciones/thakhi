@@ -11,6 +11,8 @@
       <blockValign value="TOP"/>
     </blockTableStyle>
     <blockTableStyle id="Table2">
+      <blockTopPadding value="0"/>
+      <blockBottomPadding value="0"/>
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
       <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
@@ -146,14 +148,22 @@
       <lineStyle kind="LINEABOVE" colorName="#000000" start="4,0" stop="4,0"/>
       <lineStyle kind="LINEBELOW" colorName="#000000" start="4,-1" stop="4,-1"/>
     </blockTableStyle>
+    <blockTableStyle id="Table6">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+    </blockTableStyle>
     <initialize>
       <paraStyle name="all" alignment="justify"/>
     </initialize>
     <paraStyle name="P1" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT"/>
     <paraStyle name="P2" fontName="Helvetica" fontSize="2.0" leading="3"/>
     <paraStyle name="P3" fontName="Helvetica" fontSize="2.0" leading="3"/>
-    <paraStyle name="P4" fontName="Helvetica" fontSize="2.0" leading="3"/>
-    <paraStyle name="P5" fontName="Helvetica" fontSize="2.0" leading="3" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="P4" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER"/>
+    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER"/>
     <paraStyle name="P6" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER"/>
     <paraStyle name="Standard" fontName="Helvetica" fontSize="10.0" leading="13"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -164,15 +174,224 @@
     <paraStyle name="Heading_20_2" fontName="Helvetica-BoldOblique" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="Table_20_Contents" fontName="Helvetica" fontSize="8.0" leading="10"/>
     <paraStyle name="Table_20_Heading" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER"/>
-    <images/>
+    <images>
+      <image name="10000000000000C8000000C8FADAF559.gif">R0lGODdhyADIAOcAAAQCBP///9vDFIQEDP///62RBExCBFCEs6vE2XdkBHyiwOTj16ypnTwWBHyC
+hERubIxWBMzJuSQiDLyiBP///2RkZoSSoERERPT06vSjBJSy0v///yQGBGxyeLS2nNPX1zxubMTC
+rsxGDBQSBZ6EBCwyMrw2DJSVk0xSVKSimezp2cG0I2SSvP///zxCRDdoc////xRWhXR1c+SCDDwx
+BP///ywkBP///+DYwOxkDB9gncwiFLO4vf///5SitNTi7BwaB1NWXP///////2xCBKytrv///3p5
+fLzP4v///8WkBPT6/P///3yOTP///8zMzXScwFw6BBgCBGxrbNReDNSzBNyeBDw6Otzq9P///4Zx
+BExMTKG70NPe5+QoFBxahCwqK7TL3YSatOQHHP///yhnokp8q////wwMChRSjIiryjJvqRwWBP//
+/6SqrHSVs7y9vvy0BFt9XIR+bOM4FFxPBLGvnyQkJf////z27P///zQ6PqGkpvzHBP///4OMk3Ru
+ZP///yRahCQdBGVUBPR6DKkFFERunGQaBOxFFHRyXFRGBLmcBJN8BFxjaIRqBP///////////0g8
+BFyLvJxyBDRonP///5itwERCNP////SMC////82rBOG8BG5cBNC8GuTGEP///2RyhFxaTpyeOryu
+JM/Pwnx7bLTGxMwuFFR4ZPzWBDxzqf///2xrXFQOBOQgFPOcBOw9FPutBKSLBDQrBBQOBFyEqoyk
+vPP19aS1ycPExOTl5RwcHFR9pKSstLy+s////////+xME+xcDOxtDOQxFPy9BHSGVOQPG8wGFDQD
+BNxKDPSEDOyyBBxanGR+XMSeBJx+BAxSjYSKhPTu3P///////////////8TW4////yQqLbSuLLa3
+tBQUFBJYm////////8y2HMS6HP///5SePGx6jLSWBHxqBEA2BIx2BCwuLOQ+FKwKFFpKBOTKDLTE
+1oSkxISEg4yTmkxGPJyzzDQ0NFRUU2yVuHx2ZNzk6sTO1/z+/OTr7iwAAAAAyADIAAAI/gD9CRxI
+sKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaPHjyBDihxJsqTJkyhTqlzJsqXLlzBjyqSoS9e/
+m7pm6kSpKw/LPLp6dZGXC5cOaK3EyOvyL6dLoDtJysO09KbPkXn+9dqGQIyZMtTCig1bBhemfr3+
+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
+</image>
+    </images>
   </stylesheet>
   <story>
     <blockTable colWidths="74.0,424.0" style="Table2">
       <tr>
         <td>
-          <para style="Table_20_Contents">
-            <font color="white"> </font>
-          </para>
+          <illustration height="66.0" width="66.0">
+            <image x="0" y="0" file="10000000000000C8000000C8FADAF559.gif" height="66.0" width="66.0"/>
+          </illustration>
         </td>
         <td>
           <para style="P6">INFORME VISITA TECNICA</para>
@@ -261,11 +480,11 @@
     <para style="Standard">
       <font color="white"> </font>
     </para>
-    <para style="Heading_20_2">Actividades:</para>
+    <para style="Heading_20_2">Actividades</para>
     <blockTable colWidths="133.0,75.0,63.0,136.0,93.0" style="Table1">
       <tr>
         <td>
-          <para style="Table_20_Heading">CIV</para>
+          <para style="Table_20_Heading">Segmento de Vía</para>
         </td>
         <td>
           <para style="Table_20_Heading">Elemento</para>
@@ -281,17 +500,15 @@
         </td>
       </tr>
     </blockTable>
-    <para style="P5">
-      <font color="white"> </font>
-    </para>
+    <para style="Standard">[[removeParentNode('para')]]</para>
     <section>
-      <para style="P4">[[ repeatIn(o.inspeccion_ids,'insp') ]]</para>
+      <para style="Standard">[[ repeatIn(o.inspeccion_ids,'insp')]][[removeParentNode('para')]]</para>
       <section>
-        <para style="P2">[[ repeatIn(insp.actividad_obra_ids,'actividades') ]]</para>
+        <para style="Standard">[[ repeatIn(insp.actividad_obra_ids,'actividades') ]][[removeParentNode('para')]]</para>
         <blockTable colWidths="134.0,74.0,63.0,135.0,92.0" style="Table7">
           <tr>
             <td>
-              <para style="Table_20_Contents">[[ insp.segmento_id.name]]</para>
+              <para style="Table_20_Contents">CIV: [[ insp.segmento_id.name]]</para>
               <para style="Table_20_Contents">Tipo Via: [[ insp.tipo_via_id.name]]</para>
               <para style="Table_20_Contents">Tipo Tráfico: [[ insp.tipo_trafico_id.name ]]</para>
               <para style="Table_20_Contents">PMT: [[ insp.plan_manejo_trafico_id.name]]</para>
@@ -308,96 +525,47 @@
               <para style="Table_20_Contents">Cnt: [[actividades.cantidad.name]]</para>
               <para style="Table_20_Contents">Medida: [[actividades.uom_id.name]]</para>
               <para style="Table_20_Contents">Costo Unidad: [[actividades.valor_unidad.name]]</para>
-              <para style="Table_20_Contents">
-                <font color="white"> </font>
-              </para>
-              <para style="Table_20_Contents"/>
             </td>
             <td>
               <para style="P1">[[actividades.valor_total.name]]</para>
             </td>
           </tr>
         </blockTable>
-        <para style="P3">
-          <font color="white"> </font>
-        </para>
+        <para style="Standard">[[removeParentNode('para')]]</para>
       </section>
-      <para style="P5">
-        <font color="white"> </font>
-      </para>
+      <para style="Standard">[[removeParentNode('para')]]</para>
     </section>
     <para style="Heading_20_2">Causas</para>
     <section>
-      <para style="Text_20_body">
-        <font color="white"> </font>
-      </para>
-      <para style="Text_20_body">[[ repeatIn(o.inspeccion_ids,'insp1') ]]</para>
       <section>
-        <para style="Text_20_body">
-          <font color="white"> </font>
-        </para>
+        <para style="Standard">[[ repeatIn(o.inspeccion_ids,'insp1') ]][[removeParentNode('para')]]</para>
         <section>
-          <para style="Text_20_body">[[ repeatIn(insp1.causa_ids,'causa') ]] </para>
-          <para style="Text_20_body">Causa: [[ causa.name]]</para>
-          <para style="Text_20_body">
-            <font color="white"> </font>
-          </para>
+          <para style="Standard">[[ repeatIn(insp1.causa_ids,'causa') ]] - [[ causa.name]]</para>
         </section>
       </section>
     </section>
-    <para style="Text_20_body">
-      <font color="white"> </font>
-    </para>
-    <para style="Standard">
-      <font color="white"> </font>
-    </para>
     <para style="Heading_20_2">Registro Fotográfico</para>
-    <para style="Standard">
-      <font color="white"> </font>
-    </para>
-    <para style="Standard">
-      <font color="white"> </font>
-    </para>
     <section>
-      <para style="Standard">
-        <font color="white"> </font>
-      </para>
-      <para style="Standard">[[ repeatIn(o.inspeccion_ids,'insp2') ]]</para>
-      <para style="Standard">
-        <font color="white"> </font>
-      </para>
-      <para style="Standard">
-        <font color="white"> </font>
-      </para>
+      <para style="Standard">[[ repeatIn(o.inspeccion_ids,'insp2') ]][[removeParentNode('para')]]</para>
       <section>
-        <para style="Standard">[[ repeatIn(insp2.foto_ids,'fotos') ]]</para>
-        <para style="Standard">Fotos: [[ fotos.name]]</para>
-        <para style="Standard">[[ fotos.foto and setTag('para','image',{'width':'300.0','height':'250.0'})]] [[fotos.foto]]</para>
-        <para style="Standard">[[fotos.descripcion]]</para>
+        <para style="Standard">[[ repeatIn(insp2.foto_ids,'fotos') ]][[removeParentNode('para')]]</para>
+        <blockTable colWidths="374.0" style="Table6">
+          <tr>
+            <td>
+              <para style="P4">[[fotos.name]]</para>
+              <para style="P5">[[fotos.foto and setTag('para','image',{'width':'360.0','height':'250.0'})]] [[fotos.foto]]</para>
+            </td>
+          </tr>
+        </blockTable>
+        <para style="P4">[[fotos.descripcion]]</para>
+        <para style="P4">
+          <font color="white"> </font>
+        </para>
       </section>
-      <para style="Standard">
-        <font color="white"> </font>
-      </para>
-      <para style="Standard">
-        <font color="white"> </font>
-      </para>
-      <para style="Standard">
-        <font color="white"> </font>
-      </para>
-      <para style="Standard">
+      <para style="P3">
         <font color="white"> </font>
       </para>
     </section>
-    <para style="Standard"/>
-    <para style="Standard">
-      <font color="white"> </font>
-    </para>
-    <para style="Standard">
-      <font color="white"> </font>
-    </para>
-    <para style="Standard">
-      <font color="white"> </font>
-    </para>
     <para style="Standard">
       <font color="white"> </font>
     </para>

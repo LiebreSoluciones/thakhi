@@ -24,4 +24,4 @@ class visita(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context=None):
         super(visita, self).__init__(cr, uid, name, context=context)
 
-report_sxw.report_sxw('report.thakhi.visita', 'thakhi.visita', 'addons/thakhi/report/visita.rml', parser=visita, header=True)
+report_sxw.report_sxw('report.thakhi.visita', 'thakhi.visita', 'addons/thakhi/report/visita.rml', parser=visita, header=False)
