@@ -180,10 +180,7 @@
                             </group>
                         </page>
                         <page string="Visitas">
-                            <field name="visita_ids" nolabel="1"/>
-                        </page>
-                        <page string="Inspecciones">
-                            <field name="inspeccion_ids" nolabel="1" readonly="True"/>
+                            <field name="visita_ids" nolabel="1" context="{'necesidad_id': active_id}"/>
                         </page>
                     </notebook>
                 </group>
@@ -306,7 +303,7 @@
                 <group colspan="4">
                     <notebook>
                         <page string="Inspecciones por CIV">
-                            <field name="inspeccion_ids" nolabel="1" colspan="4">
+                            <field name="inspeccion_ids" nolabel="1" colspan="4" context="{'visita_id': active_id, 'necesidad_id': necesidad_id}">
                                 <tree>
                                     <field name="segmento_id"/>
                                     <field name="valor_total"/>

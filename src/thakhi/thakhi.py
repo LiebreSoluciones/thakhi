@@ -118,9 +118,9 @@ class thakhi_visita(osv.osv):
     _name = "thakhi.visita"
 
     _columns = {
-      'id': fields.integer('Identificador', readonly=True),
-      'name': fields.char('Asunto', size=128),
-      'state': fields.selection(
+        'id': fields.integer('Identificador', readonly=True),
+        'name': fields.char('Asunto', size=128),
+        'state': fields.selection(
             [('abierta','Abierta'),('cerrada','Cerrada'),('rechazada','Rechazada')],
             'Estado',
             required=True,
@@ -144,6 +144,7 @@ class thakhi_visita(osv.osv):
 
     _defaults = {
         'state': 'abierta',
+        'necesidad_id': lambda self, cr, uid, context: context['necesidad_id'] if context and 'necesidad_id' in context else None,
     }
 
 thakhi_visita()
@@ -153,9 +154,9 @@ class thakhi_inspeccion(osv.osv):
     _name = "thakhi.inspeccion"
 
     _columns = {
-      'id': fields.integer('Identificador', readonly=True),
-      'name': fields.char('Asunto', size=128),
-      'state': fields.selection(
+        'id': fields.integer('Identificador', readonly=True),
+        'name': fields.char('Asunto', size=128),
+        'state': fields.selection(
             [('abierta','Abierta'),('cerrada','Cerrada'),('rechazada','Rechazada')],
             'Estado',
             required=True,
@@ -199,6 +200,8 @@ class thakhi_inspeccion(osv.osv):
 
     _defaults = {
         'state': 'abierta',
+        'visita_id': lambda self, cr, uid, context: context['visita_id'] if context and 'visita_id' in context else None,
+        'necesidad_id': lambda self, cr, uid, context: context['necesidad_id'] if context and 'necesidad_id' in context else None,
     }
 
     _sql_constraints = [
