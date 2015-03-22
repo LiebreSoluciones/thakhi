@@ -65,7 +65,7 @@ class thakhi_necesidad(geo_model.GeoModel):
         'direccion': fields.char('Dirección', size=128),
         'descripcion': fields.text('Descripción'),
         'prioridad': fields.selection(
-            [(1,'Alta'),(3,'Media'),(5,'Baja')],
+            [('alta','Alta'),('media','Media'),('baja','Baja')],
             'Prioridad',
             required=True,
         ),
@@ -275,7 +275,7 @@ class thakhi_segmento(osv.osv):
     _name = "thakhi.segmento"
 
     _columns = {
-        'name': fields.char('CIV (Codigo de Identificacion Vial)', size=32),
+        'name': fields.char('CIV (Codigo de Identificacion Vial)', size=32, select=True),
         'CODIGO_UPZ': fields.char('Codigo UPZ', size=50),
         'CODIGO_LOCALIDAD': fields.char('Codigo Localidad', size=50),
         'TIPO_CLASIFICACION_VIA': fields.integer('Tipo Clasificación Via'),
