@@ -32,6 +32,7 @@ class thakhi_solicitud(osv.osv):
         'name': fields.char('Asunto', size=128),
         'descripcion': fields.text('Descripción'),
         'solicitante_id': fields.many2one('res.partner.address','Solicitante'),
+        'origen_solicitud_id': fields.many2one('thakhi.solicitud.origen','Tipo Solicitud'),
         'radicado': fields.char('Número de radicado',
             size=32,
             help="Número de radicado del sistema de PQRS",
@@ -54,6 +55,16 @@ class thakhi_solicitud(osv.osv):
     }
 
 thakhi_solicitud()
+
+
+class thakhi_solicitud_origen(osv.osv):
+    _name = "thakhi.solicitud.origen"
+
+    _columns = {
+        'name': fields.char('Asunto', size=128),
+    }
+
+thakhi_solicitud_origen()
 
 
 class thakhi_necesidad(geo_model.GeoModel):

@@ -16,7 +16,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Solicitantes" id="thakhi_solicitantes_menu" parent="thakhi_solicitud_menu_root"
+    <menuitem name="Solicitantes" id="thakhi_solicitantes_menu" parent="thakhi_configuracion_menu_root"
         action="thakhi_res_partner_address_action"
         sequence="2"
     />
@@ -76,6 +76,16 @@
         action="thakhi_solicitud_action"
         sequence="5"
     />
+    <record model="ir.actions.act_window" id="thakhi_solicitud_origen_action">
+        <field name="name">Tipo Solicitud</field>
+        <field name="res_model">thakhi.solicitud.origen</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Tipo Solicitud" id="thakhi_solicitud_origen_menu" parent="thakhi_configuracion_menu_root"
+        action="thakhi_solicitud_origen_action"
+        sequence="5"
+    />
     <record model="ir.ui.view" id="solicitud_tree">
         <field name="name">thakhi.solicitud.tree</field>
         <field name="model">thakhi.solicitud</field>
@@ -100,6 +110,7 @@
                     <field name="name"/>
                     <field name="state"/>
                     <field name="solicitante_id"/>
+                    <field name="origen_solicitud_id"/>
                     <field name="radicado"/>
                     <field name="fecha_radicado"/>
                 </group>
