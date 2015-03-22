@@ -160,11 +160,11 @@
       <paraStyle name="all" alignment="justify"/>
     </initialize>
     <paraStyle name="P1" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT"/>
-    <paraStyle name="P2" fontName="Helvetica" fontSize="2.0" leading="3"/>
+    <paraStyle name="P2" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER"/>
     <paraStyle name="P3" fontName="Helvetica" fontSize="2.0" leading="3"/>
-    <paraStyle name="P4" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER"/>
+    <paraStyle name="P4" fontName="Helvetica" fontSize="2.0" leading="3"/>
     <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER"/>
-    <paraStyle name="P6" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER"/>
+    <paraStyle name="P6" fontName="Helvetica" fontSize="10.0" leading="13" alignment="CENTER"/>
     <paraStyle name="Standard" fontName="Helvetica" fontSize="10.0" leading="13"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
     <paraStyle name="Text_20_body" fontName="Helvetica" fontSize="10.0" leading="13" spaceBefore="0.0" spaceAfter="6.0"/>
@@ -394,7 +394,7 @@ hyfw41oSKEh+KNvACYeyf0jGo/zZ/4QFiH958vgraDDPv14Luizo9c8gxIK6evXqgoMihogGMShk
           </illustration>
         </td>
         <td>
-          <para style="P6">INFORME VISITA TECNICA</para>
+          <para style="P2">INFORME VISITA TECNICA</para>
           <blockTable colWidths="209.0,209.0" style="Table3">
             <tr>
               <td>
@@ -418,7 +418,7 @@ hyfw41oSKEh+KNvACYeyf0jGo/zZ/4QFiH958vgraDDPv14Luizo9c8gxIK6evXqgoMihogGMShk
         </td>
       </tr>
     </blockTable>
-    <para style="P2">[[ repeatIn(objects,'o') ]]</para>
+    <para style="P3">[[ repeatIn(objects,'o') ]]</para>
     <blockTable colWidths="47.0,202.0,59.0,190.0" style="Table5">
       <tr>
         <td>
@@ -473,7 +473,7 @@ hyfw41oSKEh+KNvACYeyf0jGo/zZ/4QFiH958vgraDDPv14Luizo9c8gxIK6evXqgoMihogGMShk
           <para style="Table_20_Contents">Tipo Solicitud:</para>
         </td>
         <td>
-          <para style="Table_20_Contents">[[ o.solicitud_id.solicitante_id.name ]]</para>
+          <para style="Table_20_Contents">[[ o.solicitud_id.origen_solicitud_id.name ]]</para>
         </td>
       </tr>
     </blockTable>
@@ -552,17 +552,17 @@ hyfw41oSKEh+KNvACYeyf0jGo/zZ/4QFiH958vgraDDPv14Luizo9c8gxIK6evXqgoMihogGMShk
         <blockTable colWidths="374.0" style="Table6">
           <tr>
             <td>
-              <para style="P4">[[fotos.name]]</para>
-              <para style="P5">[[fotos.foto and setTag('para','image',{'width':'360.0','height':'250.0'})]] [[fotos.foto]]</para>
+              <para style="P5">[[fotos.name]]</para>
+              <para style="P6">[[fotos.foto and setTag('para','image',{'width':'360.0','height':'250.0'})]] [[fotos.foto]]</para>
             </td>
           </tr>
         </blockTable>
-        <para style="P4">[[fotos.descripcion]]</para>
-        <para style="P4">
+        <para style="P5">[[fotos.descripcion]]</para>
+        <para style="P5">
           <font color="white"> </font>
         </para>
       </section>
-      <para style="P3">
+      <para style="P4">
         <font color="white"> </font>
       </para>
     </section>
