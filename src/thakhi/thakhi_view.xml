@@ -247,6 +247,7 @@
             <form>
                 <field name="name" string="Asunto"/>
                 <field name="direccion"/>
+                <field name="neighborhood_id"/>
                 <field name="state"/>
                 <field name="solicitud_id"/>
                 <field name="prioridad"/>
